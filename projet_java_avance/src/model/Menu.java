@@ -5,7 +5,13 @@ import java.util.Scanner;
 
 public class Menu {
 
+    /**
+     * Affiche le menu principal du jeu
+     */
     public static void afficher_menu(){
+
+
+        //afficher les différentes options du menu
 
         System.out.println("" +
                 "  ▄████████ ███    █▄  ▀█████████▄  ▀█████████▄   ▄█          ▄████████ \n" +
@@ -22,9 +28,13 @@ public class Menu {
         System.out.println("2•Règle");
         System.out.println("3•Fermer");
 
+
+        //Scanner le choix de l'utilisateur
         Scanner scanner = new Scanner(System.in);
         int choix_option = 0;
 
+
+        //vérifier que l'entrée est correcte et gérer les erreurs
         if (scanner.hasNextInt()){
             choix_option = scanner.nextInt();
         }
@@ -32,6 +42,7 @@ public class Menu {
             choix_option = 4;
         }
 
+        //dans le cas ou l'option n'existe pas
         if ((choix_option != 1) && (choix_option != 2) && (choix_option != 3)){
 
             System.out.println("Tu sais pas lire ou quoi ?? sale batard");
@@ -39,6 +50,7 @@ public class Menu {
 
                 afficher_menu();
         }
+        //affiche les règles si sélectioné
         else if (choix_option == 2) {
 
             System.out.println("Pendant son tour un joueur peut déplacer son pion d’une case (verticalement ou \n" +
@@ -61,6 +73,7 @@ public class Menu {
             afficher_menu();
         }
 
+        //fermer l'entrée utilisateur
         scanner.close();
 
     }

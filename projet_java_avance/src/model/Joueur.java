@@ -64,6 +64,7 @@ public class Joueur {
             }
         } else {
             System.out.println("Les coordonnées sélectionnées sont hors des limites du plateau.");
+            detruire(plateau);
         }
     }
 

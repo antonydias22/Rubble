@@ -51,11 +51,11 @@ public class Joueur {
         }
     }
 
-    public void détruire(){
+    public void detruire(){
 
     }
 
-    public boolean estbloque(int x, int y){
+    public boolean estBloque(int x, int y){
 
     return false;
 

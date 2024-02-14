@@ -47,6 +47,7 @@ public class Jeu {
             tableau[compte_y][compte_x] = -1;
             if (compte_x<4)
             {
+                tableau[compte_y][compte_x] = 0;
                 init_tableau(tableau,compte_x+1,compte_y);
             }
 
@@ -101,5 +102,38 @@ public class Jeu {
         Jeu.init_tableau(tableau,0,0);
 
         return  aqui;
+    }
+    public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui)
+    {
+        //compter nb_joueur
+        int nb_joueur = joueur.size();
+        boolean fin = false;
+        //tant que la partie n'est pas finie
+        while (fin == false)
+        {
+            int nb_bloque = 0;
+            //affichage plateau de jeu
+            afficherTableau(tableau,11,12,0,0);
+            //appel de bouger dans joueur
+            Joueur joueur_actuel = joueur.get(aqui);
+            if (joueur_actuel.mort == false) {
+                joueur_actuel.bouger();
+                //appel de détruire dans joueur
+                joueur_actuel.detruire();
+                //vérification bloquer / victoire
+                for (int i = 0; i < nb_joueur; i++) {
+                    Joueur j_tempo = joueur.get(i);
+                    j_tempo.estBloque(j_tempo.position[0], j_tempo.position[1]);
+                    if (j_tempo.mort == true)
+                        nb_bloque++;
+                }
+                if (nb_bloque >= nb_joueur - 1)
+                    fin = true;
+            }
+            //changement de joueur
+            aqui++;
+            if (aqui == nb_joueur)
+                aqui = 0;
+        }
     }
 }

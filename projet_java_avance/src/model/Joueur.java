@@ -9,7 +9,7 @@ public class Joueur {
     public boolean mort;
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Haut, Bas, Gauche, Droite
 
-    public void bouger(int[][] plateau) {
+    public void bouger(int[][] plateau, int aqui) {
         Scanner scanner = new Scanner(System.in);
         int se_deplacer = 0;
         boolean deplacementValide = false;
@@ -24,8 +24,10 @@ public class Joueur {
                     int newY = position[0] + directions[se_deplacer - 1][0];
                     int newX = position[1] + directions[se_deplacer - 1][1];
                     if (estDeplacementPossible(plateau, newY, newX)) {
+                        plateau[newY][newX] = 0;
                         position[0] = newY;
                         position[1] = newX;
+                        plateau[position[0]][position[1]] = aqui+1;
                         deplacementValide = true;
                         System.out.println("Déplacement effectué !");
                     } else {

@@ -15,7 +15,7 @@ public class Joueur {
         boolean deplacementValide = false;
 
         while (!deplacementValide) {
-            System.out.println("Où voulez-vous vous déplacer ?");
+            System.out.println("Où voulez-vous vous déplacer joueur " + (aqui + 1) + "?");
             System.out.println("1• Haut\n2• Bas\n3• Gauche\n4• Droite");
 
             if (scanner.hasNextInt()) {
@@ -24,7 +24,7 @@ public class Joueur {
                     int newY = position[0] + directions[se_deplacer - 1][0];
                     int newX = position[1] + directions[se_deplacer - 1][1];
                     if (estDeplacementPossible(plateau, newY, newX)) {
-                        plateau[newY][newX] = 0;
+                        plateau[position[0]][position[1]] = 0;
                         position[0] = newY;
                         position[1] = newX;
                         plateau[position[0]][position[1]] = aqui+1;

@@ -21,13 +21,13 @@ public class Jeu {
             System.out.print(" |");
         }
 
-        if ( compte_x != axe_x - 1)
+        if ( compte_x != axe_x -1)
         {
             System.out.print(tableau[compte_y][compte_x] + "|" );
             afficherTableau(tableau, axe_x,axe_y,compte_x +1 ,compte_y);
         }
 
-        if ((  compte_x == axe_x - 1 ) && (compte_y != axe_y - 2))
+        if ((  compte_x == axe_x - 1 ) && (compte_y != axe_y - 3))
         {
             System.out.print("\n |");
             afficherTableau(tableau, axe_x,axe_y,1 , compte_y +1);
@@ -42,16 +42,16 @@ public class Jeu {
      */
     public static void init_tableau(int[][] tableau, int compte_x, int compte_y)
     {
-        if (((compte_y == 0)||(compte_y == 3)||(compte_x == 0)||(compte_x == 4)))
+        if (((compte_y == 0)||(compte_y ==11)||(compte_x == 0)||(compte_x == 12)))
         {
+
             tableau[compte_y][compte_x] = -1;
-            if (compte_x<4)
+            if (compte_x<12)
             {
-                tableau[compte_y][compte_x] = 0;
                 init_tableau(tableau,compte_x+1,compte_y);
             }
 
-            else if (compte_y < 3)
+            else if (compte_y < 11)
             {
                 init_tableau(tableau,0,compte_y+1);
             }
@@ -70,8 +70,9 @@ public class Jeu {
      * @param joueur: la liste des joueurs que l'on va remplir à l'initialisation de la partie
      * @return on retourne le joueur qui va commencer pour lancer notre boucle de jeu
      */
-    public static int initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur)
+    public static void initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur)
     {
+        Jeu.init_tableau(tableau,1,1);
         //demander nombre de joueur
         int nb_joueur = 2;
         //création des joueurs dans la liste joueur
@@ -81,13 +82,17 @@ public class Jeu {
             // en fonction du joueur, on va leur donner une position de départ différentes
             if (i == 0)
             {
-                objet.position[0] = 0;
-                objet.position[1] = 0;
+                objet.position = new int[2];
+                objet.position[0] = 5;
+                objet.position[1] = 6;
+                tableau[objet.position[0]][objet.position[1]] = 1;
             }
             else if(i == 1)
             {
-                objet.position[0] = 1;
-                objet.position[1] = 1;
+                objet.position = new int[2];
+                objet.position[0] = 6;
+                objet.position[1] = 5;
+                tableau[objet.position[0]][objet.position[1]] = 2;
             }
             //on donne un pseudo différent de chaque joueur
             objet.pseudo = "bloop" + i;
@@ -99,9 +104,8 @@ public class Jeu {
         Random r = new Random();
         aqui = r.nextInt(nb_joueur);
         //initialisation du plateau de jeu
-        Jeu.init_tableau(tableau,0,0);
 
-        return  aqui;
+        tour_de_jeu(tableau,joueur,aqui);
     }
     public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui)
     {
@@ -113,17 +117,21 @@ public class Jeu {
         {
             int nb_bloque = 0;
             //affichage plateau de jeu
-            afficherTableau(tableau,11,12,0,0);
+            afficherTableau(tableau,13,12,1,1);
+            System.out.println("\n");
             //appel de bouger dans joueur
             Joueur joueur_actuel = joueur.get(aqui);
             if (joueur_actuel.mort == false) {
-                joueur_actuel.bouger();
+                joueur_actuel.bouger(tableau,aqui);
+
+                afficherTableau(tableau,13,12,1,1);
+
                 //appel de détruire dans joueur
-                joueur_actuel.detruire();
+                joueur_actuel.detruire(tableau);
                 //vérification bloquer / victoire
                 for (int i = 0; i < nb_joueur; i++) {
                     Joueur j_tempo = joueur.get(i);
-                    j_tempo.estBloque(j_tempo.position[0], j_tempo.position[1]);
+                    j_tempo.estBloque(tableau);
                     if (j_tempo.mort == true)
                         nb_bloque++;
                 }

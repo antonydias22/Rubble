@@ -9,10 +9,7 @@ public class Menu {
      * Affiche le menu principal du jeu
      */
     public static void afficher_menu(){
-
-
         //afficher les différentes options du menu
-
         System.out.println("" +
                 "  ▄████████ ███    █▄  ▀█████████▄  ▀█████████▄   ▄█          ▄████████ \n" +
                 "  ███    ███ ███    ███   ███    ███   ███    ███ ███         ███    ███ \n" +
@@ -28,11 +25,9 @@ public class Menu {
         System.out.println("2•Règle");
         System.out.println("3•Fermer");
 
-
         //Scanner le choix de l'utilisateur
         Scanner scanner = new Scanner(System.in);
         int choix_option = 0;
-
 
         //vérifier que l'entrée est correcte et gérer les erreurs
         if (scanner.hasNextInt()){
@@ -46,8 +41,6 @@ public class Menu {
         if ((choix_option != 1) && (choix_option != 2) && (choix_option != 3)){
 
             System.out.println("Tu sais pas lire ou quoi ?? sale batard");
-
-
                 afficher_menu();
         }
         //affiche les règles si sélectioné
@@ -64,9 +57,6 @@ public class Menu {
             Scanner scanner2 = new Scanner(System.in);
             String touche = scanner2.nextLine();
             afficher_menu();
-
-
-
         }
         else {
             System.out.println("choix séléctionné");
@@ -75,6 +65,5 @@ public class Menu {
 
         //fermer l'entrée utilisateur
         scanner.close();
-
     }
 }

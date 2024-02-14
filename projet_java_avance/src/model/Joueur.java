@@ -47,8 +47,27 @@ public class Joueur {
         return y >= 0 && y < plateau.length && x >= 0 && x < plateau[0].length && (plateau[y][x] != -1 && plateau[y][x] != 1 && plateau[y][x] != 2 && plateau[y][x] != 3 && plateau[y][x] != 4);
     }
 
-    public void detruire(){
 
+    public void detruire(int[][] plateau) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Sélectionnez la case à détruire.");
+        System.out.print("Entrez la coordonnée X : ");
+        int x = scanner.nextInt();
+        System.out.print("Entrez la coordonnée Y : ");
+        int y = scanner.nextInt();
+
+        if (y >= 0 && y < plateau.length && x >= 0 && x < plateau[0].length) {
+            if (plateau[y][x] == 0) {
+                plateau[y][x] = -1;
+                System.out.println("La case a été détruite.");
+            } else {
+                System.out.println("Action impossible : la case est un obstacle, un joueur ou une bordure.");
+            }
+        } else {
+            System.out.println("Les coordonnées sélectionnées sont hors des limites du plateau.");
+            detruire(plateau);
+        }
     }
 
     public boolean estBloque(int[][] plateau) {

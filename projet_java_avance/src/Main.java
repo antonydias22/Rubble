@@ -10,8 +10,8 @@ public class Main {
     public static void main(String[] args) {
         //Jeu test = new Jeu();
         ArrayList<Joueur> liste = new ArrayList<Joueur>();
-        int[][] tab = new int [12][132];
-        Jeu.initialisation_jeu(tab, liste);
+        int[][] tab = new int [12][13];
+        Menu.afficher_menu(liste,tab);
 
 
 

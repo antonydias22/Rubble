@@ -9,7 +9,7 @@ public class Menu {
     /**
      * Affiche le menu principal du jeu
      */
-    public static void afficher_menu(ArrayList<Joueur> joueur, int[][]tableau){
+    public static void afficher_menu(ArrayList<Joueur> joueur, int[][]tableau,ArrayList<Joueur>score){
         //afficher les différentes options du menu
         System.out.println("" +
                 "  ▄████████ ███    █▄  ▀█████████▄  ▀█████████▄   ▄█          ▄████████ \n" +
@@ -43,11 +43,11 @@ public class Menu {
         if ((choix_option != 1) && (choix_option != 2) && (choix_option != 3)&& (choix_option != 4)){
 
             System.out.println("Tu sais pas lire ou quoi ?? sale batard");
-            afficher_menu(joueur, tableau);
+            afficher_menu(joueur, tableau,score);
         }
         else if (choix_option == 1)
         {
-            Jeu.initialisation_jeu(tableau,joueur);
+            Jeu.initialisation_jeu(tableau,joueur,score);
         }
         //affiche les règles si sélectioné
         else if (choix_option == 2) {
@@ -62,17 +62,17 @@ public class Menu {
 
             Scanner scanner2 = new Scanner(System.in);
             String touche = scanner2.nextLine();
-            afficher_menu(joueur, tableau);
+            afficher_menu(joueur, tableau,score);
         }
         else if (choix_option == 3)
         {
             //afficher les scores
-            afficher_score(joueur);
-            afficher_menu(joueur, tableau);
+            afficher_score(score);
+            afficher_menu(joueur, tableau,score);
         }
         else {
             System.out.println("choix séléctionné");
-            afficher_menu(joueur, tableau);
+            afficher_menu(joueur, tableau,score);
         }
 
         //fermer l'entrée utilisateur
@@ -105,14 +105,18 @@ public class Menu {
         {
             Joueur Affiche = joueur.get(i);
             trie[i] = Affiche;
+            if (i == 9)
+                break;
             //System.out.println(Affiche.pseudo + " : " + Affiche.score);
         }
         triInsertion(trie);
         //affichage ordre croissant
+        System.out.println("score ordre croissant: ");
         for(int i = 0; i < taille; i++)
         {
             System.out.println(trie[i].pseudo + " : " + trie[i].score);
         }
+        System.out.println("score ordre decroissant: ");
         for(int i = taille - 1; i >= 0; i--)
         {
             System.out.println(trie[i].pseudo + " : " + trie[i].score);

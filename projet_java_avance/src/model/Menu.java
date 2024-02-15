@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -8,7 +9,7 @@ public class Menu {
     /**
      * Affiche le menu principal du jeu
      */
-    public static void afficher_menu(){
+    public static void afficher_menu(ArrayList<Joueur> joueur, int[][]tableau){
         //afficher les différentes options du menu
         System.out.println("" +
                 "  ▄████████ ███    █▄  ▀█████████▄  ▀█████████▄   ▄█          ▄████████ \n" +
@@ -23,7 +24,8 @@ public class Menu {
 
         System.out.println("\n1•Jouer ");
         System.out.println("2•Règle");
-        System.out.println("3•Scores");
+        System.out.println("3•Score");
+        System.out.println("3•Fermer");
 
         //Scanner le choix de l'utilisateur
         Scanner scanner = new Scanner(System.in);
@@ -38,10 +40,10 @@ public class Menu {
         }
 
         //dans le cas ou l'option n'existe pas
-        if ((choix_option != 1) && (choix_option != 2) && (choix_option != 3)){
+        if ((choix_option != 1) && (choix_option != 2) && (choix_option != 3)&& (choix_option != 4)){
 
             System.out.println("Tu sais pas lire ou quoi ?? sale batard");
-                afficher_menu();
+            afficher_menu(joueur, tableau);
         }
         //affiche les règles si sélectioné
         else if (choix_option == 2) {
@@ -56,20 +58,30 @@ public class Menu {
 
             Scanner scanner2 = new Scanner(System.in);
             String touche = scanner2.nextLine();
-            afficher_menu();
+            afficher_menu(joueur, tableau);
         }
-        else if (choix_option == 3){
-            System.out.println("Afficher les scores ici");
-            Scanner scanner2 = new Scanner(System.in);
-            String touche = scanner2.nextLine();
-            afficher_menu();
+        else if (choix_option != 3)
+        {
+            //afficher les scores
+            afficher_score(joueur);
+            afficher_menu(joueur, tableau);
         }
         else {
             System.out.println("choix séléctionné");
-            afficher_menu();
+            afficher_menu(joueur, tableau);
         }
 
         //fermer l'entrée utilisateur
         scanner.close();
+    }
+
+    public static void afficher_score(ArrayList<Joueur> joueur)
+    {
+        int taille = joueur.size();
+        for(int i = 0; i < taille; i++)
+        {
+            Joueur Affiche = joueur.get(i);
+            System.out.println(Affiche.pseudo + " : " + Affiche.score);
+        }
     }
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Jeu {
 
@@ -85,7 +86,27 @@ public class Jeu {
     {
         Jeu.init_tableau(tableau,1,1);
         //demander nombre de joueur
-        int nb_joueur = 2;
+        System.out.println("Nombre de joueur : ");
+        Scanner scanner = new Scanner(System.in);
+        int nb_joueur = 0;
+
+        //vérifier que l'entrée est correcte et gérer les erreurs
+        if (scanner.hasNextInt() ){
+            nb_joueur = scanner.nextInt();
+            if(nb_joueur <= 4 && nb_joueur > 0)
+            {
+
+            }
+            else{
+                System.out.println("Nombre de joueur Incorrect");
+                initialisation_jeu(tableau,joueur);
+            }
+        }
+        else {
+            System.out.println("Nombre de joueur Incorrect");
+            initialisation_jeu(tableau,joueur);
+        }
+
         //création des joueurs dans la liste joueur
         for(int i = 0;i < nb_joueur;i++) {
             Joueur objet = new Joueur();
@@ -104,10 +125,35 @@ public class Jeu {
                 objet.position[0] = 6;
                 objet.position[1] = 5;
                 tableau[objet.position[0]][objet.position[1]] = 2;
+            } else if (i == 2)
+            {
+                objet.position = new int[2];
+                objet.position[0] = 5;
+                objet.position[1] = 5;
+                tableau[objet.position[0]][objet.position[1]] = 3;
+            } else if (i == 3)
+            {
+                objet.position = new int[2];
+                objet.position[0] = 6;
+                objet.position[1] = 6;
+                tableau[objet.position[0]][objet.position[1]] = 4;
             }
             //on donne un pseudo différent de chaque joueur
-            objet.pseudo = "bloop" + i;
+            boolean pseudoValide = false;
+            Scanner scanner1 = new Scanner(System.in);
+            while (!pseudoValide) {
+                System.out.println("Veuillez saisir le pseudonyme pour le joueur " + (i + 1) + " (2 à 10 caractères) :");
+                String pseudonyme = scanner1.nextLine(); // Utiliser le même scanner pour éviter des conflits
+
+                if (pseudonyme.length() >= 2 && pseudonyme.length() <= 10) {
+                    objet.pseudo = pseudonyme;
+                    pseudoValide = true;
+                } else {
+                    System.out.println("Pseudo Incorrect : votre pseudo doit être compris entre 2 et 10 caractères. Merci de resaisir un pseudo !");
+                }
+            }
             joueur.add(objet);
+
         }
 
         //remplissage variable quijoue avec un nombre aléatoire
@@ -153,6 +199,17 @@ public class Jeu {
             aqui++;
             if (aqui == nb_joueur)
                 aqui = 0;
+        }
+        //lorsque la partie est fini, on attribut les scores
+        //pour chacun des joueurs de la liste, on leur donne le bon nombre de point en foction de s'il est en vie ou non
+        for (int i = 1; i < nb_joueur; i++ )
+        {
+            Joueur test = joueur.get(i);
+            boolean test2 = test.mort;
+            if (!test2)
+                test.score -= 2;
+            else
+                test.score +=3;
         }
     }
 }

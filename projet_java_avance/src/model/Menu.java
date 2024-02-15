@@ -23,7 +23,7 @@ public class Menu {
 
         System.out.println("\n1•Jouer ");
         System.out.println("2•Règle");
-        System.out.println("3•Fermer");
+        System.out.println("3•Scores");
 
         //Scanner le choix de l'utilisateur
         Scanner scanner = new Scanner(System.in);
@@ -54,6 +54,12 @@ public class Menu {
                     "- Un joueur ne peut pas occuper une case détruite ou une case déjà occupée.\n" +
                     "- Un joueur bloqué pendant un tour est déclaré perdant");
 
+            Scanner scanner2 = new Scanner(System.in);
+            String touche = scanner2.nextLine();
+            afficher_menu();
+        }
+        else if (choix_option == 3){
+            System.out.println("Afficher les scores ici");
             Scanner scanner2 = new Scanner(System.in);
             String touche = scanner2.nextLine();
             afficher_menu();

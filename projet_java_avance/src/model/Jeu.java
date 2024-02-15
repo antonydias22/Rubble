@@ -210,7 +210,11 @@ public class Jeu {
                 test.score -= 2;
             else
                 test.score +=5;
-            System.out.println("Le joueur : " + test.pseudo + "à gagné");
+            System.out.println("Le joueur : " + test.pseudo + " à gagné");
         }
+
+        Scanner scanner3 = new Scanner(System.in);
+        String touche = scanner3.nextLine();
+        Menu.afficher_menu(joueur, tableau);
     }
 }

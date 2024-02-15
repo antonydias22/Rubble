@@ -64,7 +64,7 @@ public class Menu {
             String touche = scanner2.nextLine();
             afficher_menu(joueur, tableau);
         }
-        else if (choix_option != 3)
+        else if (choix_option == 3)
         {
             //afficher les scores
             afficher_score(joueur);
@@ -113,7 +113,7 @@ public class Menu {
         {
             System.out.println(trie[i].pseudo + " : " + trie[i].score);
         }
-        for(int i = taille - 1; i >= 0; i++)
+        for(int i = taille - 1; i >= 0; i--)
         {
             System.out.println(trie[i].pseudo + " : " + trie[i].score);
         }

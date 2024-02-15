@@ -24,7 +24,28 @@ public class Joueur {
 
         // Boucle tant que le déplacement n'est pas valide
         while (!deplacementValide) {
-            System.out.println("Où voulez-vous vous déplacer joueur " + (aqui + 1) + "?");
+            switch(aqui+1){
+
+                case 1:
+                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[31m" + "♥" + "\u001B[0m" + "?");
+                    break;
+
+                case 2:
+                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[33m" + "♠" + "\u001B[0m" + "?");
+                    break;
+
+                case 3:
+                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[34m" + "♣" + "\u001B[0m" + "?");
+                    break;
+
+                case  4:
+                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[32m" + "♦" + "\u001B[0m" + "?");
+                    break;
+
+                default:
+                    System.out.println("Choix incorrect");
+                    break;
+            }
             System.out.println("1• Haut\n2• Bas\n3• Gauche\n4• Droite");
 
             // Vérification si l'entrée utilisateur est un entier
@@ -73,7 +94,7 @@ public class Joueur {
     public void detruire(int[][] plateau) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Sélectionnez la case à détruire.");
+        System.out.println("\nSélectionnez la case à détruire.");
         System.out.print("Entrez la coordonnée X : ");
         int x = scanner.nextInt();
         System.out.print("Entrez la coordonnée Y : ");

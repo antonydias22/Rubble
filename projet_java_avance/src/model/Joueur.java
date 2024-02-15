@@ -1,28 +1,40 @@
-package model;
+package model; // Déclaration du package
 
-import java.util.Scanner;
+import java.util.Scanner; // Importation de la classe Scanner
 
+/**
+ * Classe représentant un joueur dans le jeu.
+ */
 public class Joueur {
 
-    public String pseudo;
-    public int[] position;
-    public boolean mort;
-    private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Haut, Bas, Gauche, Droite
+    public String pseudo; // Pseudo du joueur
+    public int[] position; // Position du joueur sur le plateau
+    public boolean mort; // Indique si le joueur est mort ou non
+    private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Directions possibles : Haut, Bas, Gauche, Droite
 
+    /**
+     * Méthode pour déplacer le joueur sur le plateau.
+     * @param plateau Le plateau de jeu.
+     * @param aqui Numéro du joueur.
+     */
     public void bouger(int[][] plateau, int aqui) {
-        Scanner scanner = new Scanner(System.in);
-        int se_deplacer = 0;
-        boolean deplacementValide = false;
+        Scanner scanner = new Scanner(System.in); // Création d'un objet Scanner pour lire l'entrée utilisateur
+        int se_deplacer = 0; // Variable pour stocker le choix de déplacement
+        boolean deplacementValide = false; // Variable pour vérifier si le déplacement est valide
 
+        // Boucle tant que le déplacement n'est pas valide
         while (!deplacementValide) {
             System.out.println("Où voulez-vous vous déplacer joueur " + (aqui + 1) + "?");
             System.out.println("1• Haut\n2• Bas\n3• Gauche\n4• Droite");
 
+            // Vérification si l'entrée utilisateur est un entier
             if (scanner.hasNextInt()) {
                 se_deplacer = scanner.nextInt();
+                // Vérification si le choix de déplacement est valide
                 if (se_deplacer >= 1 && se_deplacer <= 4) {
                     int newY = position[0] + directions[se_deplacer - 1][0];
                     int newX = position[1] + directions[se_deplacer - 1][1];
+                    // Vérification si le déplacement est possible
                     if (estDeplacementPossible(plateau, newY, newX)) {
                         plateau[position[0]][position[1]] = 0;
                         position[0] = newY;
@@ -42,12 +54,22 @@ public class Joueur {
         }
     }
 
+    /**
+     * Méthode pour vérifier si le déplacement est possible à une certaine position.
+     * @param plateau Le plateau de jeu.
+     * @param y Coordonnée Y de la nouvelle position.
+     * @param x Coordonnée X de la nouvelle position.
+     * @return True si le déplacement est possible, sinon False.
+     */
     private boolean estDeplacementPossible(int[][] plateau, int y, int x) {
         // Vérifie si la nouvelle position est dans les limites du plateau et n'est pas un obstacle
         return y >= 0 && y < plateau.length && x >= 0 && x < plateau[0].length && (plateau[y][x] != -1 && plateau[y][x] != 1 && plateau[y][x] != 2 && plateau[y][x] != 3 && plateau[y][x] != 4);
     }
 
-
+    /**
+     * Méthode pour détruire une case sur le plateau.
+     * @param plateau Le plateau de jeu.
+     */
     public void detruire(int[][] plateau) {
         Scanner scanner = new Scanner(System.in);
 
@@ -66,10 +88,15 @@ public class Joueur {
             }
         } else {
             System.out.println("Les coordonnées sélectionnées sont hors des limites du plateau.");
-            detruire(plateau);
+            detruire(plateau); // Demande de saisie de nouvelles coordonnées
         }
     }
 
+    /**
+     * Méthode pour vérifier si le joueur est bloqué.
+     * @param plateau Le plateau de jeu.
+     * @return True si le joueur est bloqué, sinon False.
+     */
     public boolean estBloque(int[][] plateau) {
         int y = position[0]; // Position Y actuelle du joueur
         int x = position[1]; // Position X actuelle du joueur
@@ -99,9 +126,7 @@ public class Joueur {
 
         // Si toutes les directions sont bloquées par des obstacles (-1) ou d'autres joueurs (1 à 4),
         // alors le joueur est considéré comme bloqué.
-        mort = true;
-        return true;
+        mort = true; // Le joueur est marqué comme mort
+        return true; // Le joueur est bloqué
     }
-
-
 }

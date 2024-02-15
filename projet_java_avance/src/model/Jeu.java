@@ -23,11 +23,22 @@ public class Jeu {
 
         if ( compte_x != axe_x -1)
         {
-            System.out.print(tableau[compte_y][compte_x] + "|" );
+            if (tableau[compte_y][compte_x] == 0)
+                System.out.print(" |");
+            else if (tableau[compte_y][compte_x] == -1)
+                System.out.print("■|");
+            else if (tableau[compte_y][compte_x] == 1)
+                System.out.print("\u001B[31m" + "♥" + "\u001B[0m" + "|");
+            else if (tableau[compte_y][compte_x] == 2)
+                System.out.print("\u001B[33m" + "♠"+ "\u001B[0m"+ "|");
+            else if (tableau[compte_y][compte_x]==3)
+                System.out.print("\u001B[34m" + "♣"+ "\u001B[0m"+ "|");
+            else if (tableau[compte_y][compte_x]==4)
+                System.out.print("\u001B[32m" + "♦"+ "\u001B[0m"+ "|");
             afficherTableau(tableau, axe_x,axe_y,compte_x +1 ,compte_y);
         }
 
-        if ((  compte_x == axe_x - 1 ) && (compte_y != axe_y - 3))
+        if ((  compte_x == axe_x - 1 ) && (compte_y != axe_y - 2))
         {
             System.out.print("\n |");
             afficherTableau(tableau, axe_x,axe_y,1 , compte_y +1);

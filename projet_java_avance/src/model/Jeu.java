@@ -209,7 +209,8 @@ public class Jeu {
             if (!test2)
                 test.score -= 2;
             else
-                test.score +=3;
+                test.score +=5;
+            System.out.println("Le joueur : " + test.pseudo + "à gagné");
         }
     }
 }

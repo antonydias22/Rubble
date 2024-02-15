@@ -139,21 +139,20 @@ public class Jeu {
                 tableau[objet.position[0]][objet.position[1]] = 4;
             }
             //on donne un pseudo différent de chaque joueur
-            System.out.println("Veullez saisir le pseudonyme joueur " + (i+1) + ":");
+            boolean pseudoValide = false;
             Scanner scanner1 = new Scanner(System.in);
-            if (scanner1.hasNextLine())
-            {
-                String pseudonyme = scanner1.nextLine();
-                if (pseudonyme.length() >= 2 && pseudonyme.length() <= 10)
-                {
+            while (!pseudoValide) {
+                System.out.println("Veuillez saisir le pseudonyme pour le joueur " + (i + 1) + " (2 à 10 caractères) :");
+                String pseudonyme = scanner1.nextLine(); // Utiliser le même scanner pour éviter des conflits
+
+                if (pseudonyme.length() >= 2 && pseudonyme.length() <= 10) {
                     objet.pseudo = pseudonyme;
-                    joueur.add(objet);
-                }
-                else {
-                    System.out.println("Pseudo Incorrect votre pseudo doit etre compris entre 2 et 10 caractères, Merci de resaisir un pseudo !");
-                    scanner1.next();
+                    pseudoValide = true;
+                } else {
+                    System.out.println("Pseudo Incorrect : votre pseudo doit être compris entre 2 et 10 caractères. Merci de resaisir un pseudo !");
                 }
             }
+            joueur.add(objet);
 
         }
 
@@ -200,6 +199,17 @@ public class Jeu {
             aqui++;
             if (aqui == nb_joueur)
                 aqui = 0;
+        }
+        //lorsque la partie est fini, on attribut les scores
+        //pour chacun des joueurs de la liste, on leur donne le bon nombre de point en foction de s'il est en vie ou non
+        for (int i = 1; i < nb_joueur; i++ )
+        {
+            Joueur test = joueur.get(i);
+            boolean test2 = test.mort;
+            if (!test2)
+                test.score -= 2;
+            else
+                test.score +=3;
         }
     }
 }

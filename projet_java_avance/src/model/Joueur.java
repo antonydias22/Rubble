@@ -27,19 +27,19 @@ public class Joueur {
             switch(aqui+1){
 
                 case 1:
-                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[31m" + "♥" + "\u001B[0m" + "?");
+                    System.out.println("Où voulez-vous vous déplacer joueur " + pseudo + " : " + "\u001B[31m" + "♥" + "\u001B[0m" + "?");
                     break;
 
                 case 2:
-                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[33m" + "♠" + "\u001B[0m" + "?");
+                    System.out.println("Où voulez-vous vous déplacer joueur " + pseudo + " : " + "\u001B[33m" + "♠" + "\u001B[0m" + "?");
                     break;
 
                 case 3:
-                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[34m" + "♣" + "\u001B[0m" + "?");
+                    System.out.println("Où voulez-vous vous déplacer joueur " + pseudo + " : " + "\u001B[34m" + "♣" + "\u001B[0m" + "?");
                     break;
 
                 case  4:
-                    System.out.println("Où voulez-vous vous déplacer joueur " + (aqui+1) + " : " + "\u001B[32m" + "♦" + "\u001B[0m" + "?");
+                    System.out.println("Où voulez-vous vous déplacer joueur " + pseudo + " : " + "\u001B[32m" + "♦" + "\u001B[0m" + "?");
                     break;
 
                 default:
@@ -106,6 +106,7 @@ public class Joueur {
                 System.out.println("La case a été détruite.");
             } else {
                 System.out.println("Action impossible : la case est un obstacle, un joueur ou une bordure.");
+                detruire(plateau);
             }
         } else {
             System.out.println("Les coordonnées sélectionnées sont hors des limites du plateau.");

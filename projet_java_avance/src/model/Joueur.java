@@ -6,7 +6,13 @@ import java.util.Scanner; // Importation de la classe Scanner
  * Classe représentant un joueur dans le jeu.
  */
 public class Joueur {
+  
+    public String pseudo;
+    public int[] position;
+    public boolean mort;
 
+    public int score = 0;
+    private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Haut, Bas, Gauche, Droite
     public String pseudo; // Pseudo du joueur
     public int[] position; // Position du joueur sur le plateau
     public boolean mort; // Indique si le joueur est mort ou non

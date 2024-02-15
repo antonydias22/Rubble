@@ -1,14 +1,13 @@
-package model;
+package model; // Déclaration du package
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.ArrayList; // Importation de la classe ArrayList
+import java.util.Random; // Importation de la classe Random
+import java.util.Scanner; // Importation de la classe Scanner
 
 public class Jeu {
-
     /**
      * Fonction permettant d'afficher le plateau de jeu lorsque l'on lui demande, elle va alors afficher toutes les
-     * valeurs d'un tableau à l'execption des extrémité
+     * valeurs d'un tableau à l'execption des extrémitées
      * @param tableau : le tableau qui contient les infos que l'on veut afficher
      * @param axe_x : taille du plateau en hauteur
      * @param axe_y : taille du plateau en largeur
@@ -17,13 +16,16 @@ public class Jeu {
      */
     public static void afficherTableau(int[][] tableau, int axe_x, int axe_y, int compte_x, int compte_y) {
 
+        // Affichage de la barre verticale à la première cellule
         if ((compte_x == 1) && (compte_y == 1))
         {
             System.out.print(" |");
         }
 
-        if ( compte_x != axe_x -1)
+        // Vérifie si ce n'est pas la dernière colonne
+        if (compte_x != axe_x -1)
         {
+            // Affiche le contenu de la cellule en fonction de sa valeur
             if (tableau[compte_y][compte_x] == 0)
                 System.out.print(" |");
             else if (tableau[compte_y][compte_x] == -1)
@@ -31,43 +33,56 @@ public class Jeu {
             else if (tableau[compte_y][compte_x] == 1)
                 System.out.print("\u001B[31m" + "♥" + "\u001B[0m" + "|");
             else if (tableau[compte_y][compte_x] == 2)
-                System.out.print("\u001B[33m" + "♠"+ "\u001B[0m"+ "|");
-            else if (tableau[compte_y][compte_x]==3)
-                System.out.print("\u001B[34m" + "♣"+ "\u001B[0m"+ "|");
-            else if (tableau[compte_y][compte_x]==4)
-                System.out.print("\u001B[32m" + "♦"+ "\u001B[0m"+ "|");
+                System.out.print("\u001B[33m" + "♠" + "\u001B[0m"+ "|");
+            else if (tableau[compte_y][compte_x] == 3)
+                System.out.print("\u001B[34m" + "♣" + "\u001B[0m"+ "|");
+            else if (tableau[compte_y][compte_x] == 4)
+                System.out.print("\u001B[32m" + "♦" + "\u001B[0m"+ "|");
+
+            // Appel la fonction récursivement pour afficher la cellule suivante dans la même ligne
             afficherTableau(tableau, axe_x,axe_y,compte_x +1 ,compte_y);
         }
 
-        if ((  compte_x == axe_x - 1 ) && (compte_y != axe_y - 2))
+        // Vérifie si c'est la dernière colonne mais pas la dernière ligne
+        if ((compte_x == axe_x - 1) && (compte_y != axe_y - 2))
         {
+            // Passe à la ligne et affiche le début d'une nouvelle ligne
             System.out.print("\n |");
-            afficherTableau(tableau, axe_x,axe_y,1 , compte_y +1);
+            // Appelle la fonction récursivement pour afficher la première cellule de la nouvelle ligne
+            afficherTableau(tableau, axe_x, axe_y,1 , compte_y +1);
         }
     }
 
     /**
-     *
-     * @param tableau: le tableau qui contient les infos que l'on veut afficher
-     * @param compte_x: pointeur selon l'axe horizontale qui va nous permettre de nous repérer sur le plateau
-     * @param compte_y: pointeur selon l'axe verticale qui va nous permettre de nous repérer sur le plateau
+     * Fonction permettant d'initialiser le tableau au lancement de la partie
+     * @param tableau : le tableau qui contient les infos que l'on veut afficher
+     * @param compte_x : pointeur selon l'axe horizontale qui va nous permettre de nous repérer sur le plateau
+     * @param compte_y : pointeur selon l'axe verticale qui va nous permettre de nous repérer sur le plateau
      */
     public static void init_tableau(int[][] tableau, int compte_x, int compte_y)
     {
-        if (((compte_y == 0)||(compte_y ==11)||(compte_x == 0)||(compte_x == 12)))
+        // Vérifie si la position actuelle se trouve aux bords du tableau
+        if (((compte_y == 0)||(compte_y == 11)||(compte_x == 0)||(compte_x == 12)))
         {
-
+            // Si elle se trouve sur le bord, on défini la valeur à cette position est défini à -1
             tableau[compte_y][compte_x] = -1;
-            if (compte_x<12)
+
+            // Fait un déplacement à la colonne suivante (si existante.s) selon la position actuelle
+            if (compte_x < 12)
             {
                 init_tableau(tableau,compte_x+1,compte_y);
             }
 
+            // Si la position actuelle est sur le bord, le déplacement est effectué
+            // à la première colonne de la ligne suivante
             else if (compte_y < 11)
             {
                 init_tableau(tableau,0,compte_y+1);
             }
         }
+
+        // Si la position actuelle n'est pas sur le bord,
+        // on lui assigne la valeur 0 et on la déplace à la colonne suivante
         else
         {
             tableau[compte_y][compte_x] = 0;
@@ -78,19 +93,19 @@ public class Jeu {
     /**
      * Cette fonction permet d'initialiser la partie en donnant un nom au joueur, préparant le plateau et donnant le
      * joueur qui va commencer la partie
-     * @param tableau: le tableau qui contient les infos que l'on veut afficher
-     * @param joueur: la liste des joueurs que l'on va remplir à l'initialisation de la partie
-     * @return on retourne le joueur qui va commencer pour lancer notre boucle de jeu
+     * @param tableau : le tableau qui contient les infos que l'on veut afficher
+     * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
+     * @return : on retourne le joueur qui va commencer pour lancer notre boucle de jeu
      */
     public static void initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur)
     {
         Jeu.init_tableau(tableau,1,1);
-        //demander nombre de joueur
-        System.out.println("Nombre de joueur : ");
+        // Demande le nombre de joueur
+        System.out.println("Nombre de joueur(s) : ");
         Scanner scanner = new Scanner(System.in);
         int nb_joueur = 0;
 
-        //vérifier que l'entrée est correcte et gérer les erreurs
+        // Vérifie que l'entrée est correcte et gère les erreurs
         if (scanner.hasNextInt() ){
             nb_joueur = scanner.nextInt();
             if(nb_joueur <= 4 && nb_joueur > 0)
@@ -107,11 +122,11 @@ public class Jeu {
             initialisation_jeu(tableau,joueur);
         }
 
-        //création des joueurs dans la liste joueur
-        for(int i = 0;i < nb_joueur;i++) {
+        // Création des joueurs dans la liste joueur
+        for (int i = 0; i < nb_joueur; i++) {
             Joueur objet = new Joueur();
             objet.mort = false;
-            // en fonction du joueur, on va leur donner une position de départ différentes
+            // En fonction du joueur, on va leur donner une position de départ différente
             if (i == 0)
             {
                 objet.position = new int[2];
@@ -119,7 +134,7 @@ public class Jeu {
                 objet.position[1] = 6;
                 tableau[objet.position[0]][objet.position[1]] = 1;
             }
-            else if(i == 1)
+            else if (i == 1)
             {
                 objet.position = new int[2];
                 objet.position[0] = 6;
@@ -138,7 +153,8 @@ public class Jeu {
                 objet.position[1] = 6;
                 tableau[objet.position[0]][objet.position[1]] = 4;
             }
-            //on donne un pseudo différent de chaque joueur
+
+            // On donne un pseudo différent à chaque joueur
             boolean pseudoValide = false;
             Scanner scanner1 = new Scanner(System.in);
             while (!pseudoValide) {
@@ -153,39 +169,48 @@ public class Jeu {
                 }
             }
             joueur.add(objet);
-
         }
 
-        //remplissage variable quijoue avec un nombre aléatoire
+        // Remplissage variable qui joue avec un nombre aléatoire
         int aqui;
         Random r = new Random();
         aqui = r.nextInt(nb_joueur);
-        //initialisation du plateau de jeu
 
+        // Initialisation du plateau de jeu
         tour_de_jeu(tableau,joueur,aqui);
     }
+
+    /**
+     * Fonction permettant la gestion des tours de jeu dans la partie
+     * @param tableau : le tableau qui contient les infos que l'on veut afficher
+     * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
+     * @param aqui : variable qui stock les indices des joueurs
+     */
     public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui)
     {
-        //compter nb_joueur
+        // Compte le nombre de joueur
         int nb_joueur = joueur.size();
         boolean fin = false;
-        //tant que la partie n'est pas finie
+
+        // La boucle s'exécute tant que la partie n'est pas finie
         while (fin == false)
         {
             int nb_bloque = 0;
-            //affichage plateau de jeu
+
+            // Affichage plateau de jeu
             afficherTableau(tableau,13,12,1,1);
             System.out.println("\n");
-            //appel de bouger dans joueur
+
+            // Appel de la méthode bouger dans joueur dans le cas où le joueur n'est pas mort
             Joueur joueur_actuel = joueur.get(aqui);
             if (joueur_actuel.mort == false) {
                 joueur_actuel.bouger(tableau,aqui);
-
                 afficherTableau(tableau,13,12,1,1);
 
-                //appel de détruire dans joueur
+                // Appel de la méthode détruire dans joueur
                 joueur_actuel.detruire(tableau);
-                //vérification bloquer / victoire
+
+                // Vérification bloquer / victoire
                 for (int i = 0; i < nb_joueur; i++) {
                     Joueur j_tempo = joueur.get(i);
                     j_tempo.estBloque(tableau);
@@ -195,13 +220,15 @@ public class Jeu {
                 if (nb_bloque >= nb_joueur - 1)
                     fin = true;
             }
-            //changement de joueur
+
+            // Changement de joueur
             aqui++;
             if (aqui == nb_joueur)
                 aqui = 0;
         }
-        //lorsque la partie est fini, on attribut les scores
-        //pour chacun des joueurs de la liste, on leur donne le bon nombre de point en foction de s'il est en vie ou non
+
+        // Lorsque la partie est fini, on attribut les scores pour chacun des joueurs de la liste,
+        // on leur donne le bon nombre de point en fonction de s'il est en vie ou non
         for (int i = 1; i < nb_joueur; i++ )
         {
             Joueur test = joueur.get(i);
@@ -213,6 +240,7 @@ public class Jeu {
             System.out.println("Le joueur : " + test.pseudo + " à gagné");
         }
 
+        // Retour au menu principal
         Scanner scanner3 = new Scanner(System.in);
         String touche = scanner3.nextLine();
         Menu.afficher_menu(joueur, tableau);

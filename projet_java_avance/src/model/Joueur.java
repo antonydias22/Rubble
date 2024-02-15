@@ -3,7 +3,7 @@ package model; // Déclaration du package
 import java.util.Scanner; // Importation de la classe Scanner
 
 /**
- * Classe représentant un joueur dans le jeu.
+ * Classe représentant un joueur dans le jeu
  */
 public class Joueur {
     public int score = 0;
@@ -13,9 +13,9 @@ public class Joueur {
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Directions possibles : Haut, Bas, Gauche, Droite
 
     /**
-     * Méthode pour déplacer le joueur sur le plateau.
-     * @param plateau Le plateau de jeu.
-     * @param aqui Numéro du joueur.
+     * Méthode pour déplacer le joueur sur le plateau
+     * @param plateau : le plateau de jeu
+     * @param aqui : numéro du joueur
      */
     public void bouger(int[][] plateau, int aqui) {
         Scanner scanner = new Scanner(System.in); // Création d'un objet Scanner pour lire l'entrée utilisateur
@@ -24,6 +24,7 @@ public class Joueur {
 
         // Boucle tant que le déplacement n'est pas valide
         while (!deplacementValide) {
+            // Choix de déplacement du joueur
             switch(aqui+1){
 
                 case 1:
@@ -88,8 +89,8 @@ public class Joueur {
     }
 
     /**
-     * Méthode pour détruire une case sur le plateau.
-     * @param plateau Le plateau de jeu.
+     * Méthode pour détruire une case sur le plateau
+     * @param plateau : le plateau de jeu
      */
     public void detruire(int[][] plateau) {
         Scanner scanner = new Scanner(System.in);
@@ -102,7 +103,7 @@ public class Joueur {
 
         if (y >= 0 && y < plateau.length && x >= 0 && x < plateau[0].length) {
             if (plateau[y][x] == 0) {
-                plateau[y][x] = -1;
+                plateau[y][x] = -1; // Remplace la valeur par -1
                 System.out.println("La case a été détruite.");
             } else {
                 System.out.println("Action impossible : la case est un obstacle, un joueur ou une bordure.");
@@ -115,9 +116,9 @@ public class Joueur {
     }
 
     /**
-     * Méthode pour vérifier si le joueur est bloqué.
-     * @param plateau Le plateau de jeu.
-     * @return True si le joueur est bloqué, sinon False.
+     * Méthode pour vérifier si le joueur est bloqué
+     * @param plateau : le plateau de jeu
+     * @return : true si le joueur est bloqué, sinon False
      */
     public boolean estBloque(int[][] plateau) {
         int y = position[0]; // Position Y actuelle du joueur
@@ -125,8 +126,8 @@ public class Joueur {
 
 
         for (int i = 0; i < directions.length; i++) {
-            int directionY = directions[i][0]; // Deplacement en Y (haut ou bas)
-            int directionX = directions[i][1]; // Deplacement en X (gauche ou droite)
+            int directionY = directions[i][0]; // Déplacement en Y (haut ou bas)
+            int directionX = directions[i][1]; // Déplacement en X (gauche ou droite)
 
             int newY = y + directionY;
             int newX = x + directionX;
@@ -141,13 +142,13 @@ public class Joueur {
             } else {
                 // Si la nouvelle position est hors des limites, cela signifie que le joueur
                 // ne peut pas se déplacer dans cette direction, mais cela ne signifie pas
-                // nécessairement qu'il est bloqué. Nous devons vérifier les autres directions.
+                // nécessairement qu'il est bloqué. Nous devons vérifier les autres directions
                 continue;
             }
         }
 
         // Si toutes les directions sont bloquées par des obstacles (-1) ou d'autres joueurs (1 à 4),
-        // alors le joueur est considéré comme bloqué.
+        // alors le joueur est considéré comme bloqué
         mort = true; // Le joueur est marqué comme mort
         return true; // Le joueur est bloqué
     }

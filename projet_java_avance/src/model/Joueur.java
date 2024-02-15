@@ -7,6 +7,8 @@ public class Joueur {
     public String pseudo;
     public int[] position;
     public boolean mort;
+
+    public int score = 0;
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Haut, Bas, Gauche, Droite
 
     public void bouger(int[][] plateau, int aqui) {

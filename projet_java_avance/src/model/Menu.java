@@ -7,11 +7,13 @@ import java.util.Scanner;
 public class Menu {
     /**
      * Affiche le menu principal du jeu
+     * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
+     * @param tableau : le tableau qui contient les infos que l'on veut afficher
+     * @param score : le tableau qui stocke les scores
      */
-  
     public static void afficher_menu(ArrayList<Joueur> joueur, int[][]tableau,ArrayList<Joueur>score){
   
-        //afficher les différentes options du menu
+        // Affiche les différentes options du menu
         System.out.println("" +
                 "  ▄████████ ███    █▄  ▀█████████▄  ▀█████████▄   ▄█          ▄████████ \n" +
                 "  ███    ███ ███    ███   ███    ███   ███    ███ ███         ███    ███ \n" +
@@ -39,11 +41,10 @@ public class Menu {
         else {
             choix_option = 4;
         }
-
         // Dans le cas où l'option n'existe pas
         if ((choix_option != 1) && (choix_option != 2) && (choix_option != 3)&& (choix_option != 4)){
 
-            System.out.println("Tu sais pas lire ou quoi ?? sale batard");
+            System.out.println("Tu sais pas lire ou quoi ?? Sale batard");
             afficher_menu(joueur, tableau,score);
         }
         else if (choix_option == 1)
@@ -67,15 +68,14 @@ public class Menu {
         }
         else if (choix_option == 3)
         {
-            //afficher les scores
+            // Affiche les scores
             afficher_score(score);
             afficher_menu(joueur, tableau,score);
         }
         else {
-            System.out.println("choix séléctionné");
+            System.out.println("Choix séléctionné");
             afficher_menu(joueur, tableau,score);
         }
-
         // Fermer l'entrée utilisateur
         scanner.close();
     }
@@ -106,34 +106,34 @@ public class Menu {
     }
 
     /**
-     * Fonction permettant d'afficher les scores des joueurs dans un ordre trié
+     * Fonction permettant d'afficher les scores des joueurs dans un ordre trié (croissant et décroissant)
      * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
      */
     public static void afficher_score(ArrayList<Joueur> joueur)
     {
-        int taille = joueur.size();
-        Joueur [] trie = new Joueur[taille];
-        for(int i = 0; i < taille; i++)
+        int taille = joueur.size(); // On récupère la taille du tableau des joueurs
+        Joueur [] trie = new Joueur[taille]; // Création d'un tableau de trie
+        for (int i = 0; i < taille; i++)
         {
             Joueur Affiche = joueur.get(i);
             trie[i] = Affiche;
           
             if (i == 9)
                 break;
-            //System.out.println(Affiche.pseudo + " : " + Affiche.score);
         }
         triInsertion(trie);
-        //affichage ordre croissant
-        System.out.println("score ordre croissant: ");
+        // Affichage par ordre croissant
+        System.out.println("Score ordre croissant: ");
       
-        for(int i = 0; i < taille; i++)
+        for (int i = 0; i < taille; i++)
         {
             System.out.println(trie[i].pseudo + " : " + trie[i].score);
         }
+
+        // Affichage par ordre décroissant
+        System.out.println("Score ordre décroissant: ");
       
-        System.out.println("score ordre decroissant: ");
-      
-        for(int i = taille - 1; i >= 0; i--)
+        for (int i = taille - 1; i >= 0; i--)
         {
             System.out.println(trie[i].pseudo + " : " + trie[i].score);
         }

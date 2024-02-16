@@ -94,11 +94,11 @@ public class Joueur {
     }
 
     /**
-     * Méthode pour vérifier si le déplacement est possible à une certaine position.
-     * @param plateau Le plateau de jeu.
-     * @param y Coordonnée Y de la nouvelle position.
-     * @param x Coordonnée X de la nouvelle position.
-     * @return True si le déplacement est possible, sinon False.
+     * Méthode pour vérifier si le déplacement est possible à une certaine position
+     * @param plateau : le plateau de jeu
+     * @param y : coordonnée Y de la nouvelle position
+     * @param x : coordonnée X de la nouvelle position
+     * @return : True si le déplacement est possible, sinon False
      */
     private boolean estDeplacementPossible(int[][] plateau, int y, int x) {
         // Vérifie si la nouvelle position est dans les limites du plateau et n'est pas un obstacle

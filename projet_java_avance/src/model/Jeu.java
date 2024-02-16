@@ -111,11 +111,12 @@ public class Jeu {
         // Vérifie que l'entrée est correcte et gère les erreurs
         if (scanner.hasNextInt() ){
             nb_joueur = scanner.nextInt();
-            if(nb_joueur <= 4 && nb_joueur > 0)
+            if (nb_joueur <= 4 && nb_joueur > 0)
             {
 
             }
-            else{
+            else
+            {
                 System.out.println("Nombre de joueur Incorrect");
                 initialisation_jeu(tableau,joueur,score);
             }
@@ -130,26 +131,28 @@ public class Jeu {
             Joueur objet = new Joueur();
             objet.mort = false;
             // En fonction du joueur, on va leur donner une position de départ différente
-            if (i == 0)
+            if (i == 0) // Position joueur 1
             {
                 objet.position = new int[2];
                 objet.position[0] = 5;
                 objet.position[1] = 6;
                 tableau[objet.position[0]][objet.position[1]] = 1;
             }
-            else if (i == 1)
+            else if (i == 1) // Position joueur 2
             {
                 objet.position = new int[2];
                 objet.position[0] = 6;
                 objet.position[1] = 5;
                 tableau[objet.position[0]][objet.position[1]] = 2;
-            } else if (i == 2)
+            }
+            else if (i == 2) // Position joueur 3
             {
                 objet.position = new int[2];
                 objet.position[0] = 5;
                 objet.position[1] = 5;
                 tableau[objet.position[0]][objet.position[1]] = 3;
-            } else if (i == 3)
+            }
+            else if (i == 3) // Position joueur 4
             {
                 objet.position = new int[2];
                 objet.position[0] = 6;
@@ -181,7 +184,14 @@ public class Jeu {
       
         tour_de_jeu(tableau,joueur,aqui,score);
     }
-  
+
+    /**
+     * Fonction gérant le déroulement des tours de jeu dans une partie
+     * @param tableau : le tableau qui contient les infos que l'on veut afficher
+     * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
+     * @param aqui : numéro du joueur
+     * @param listescore : liste des scores
+     */
     public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui, ArrayList<Joueur> listescore)
     {
         // Compte le nombre de joueur
@@ -223,8 +233,8 @@ public class Jeu {
                 aqui = 0;
         }
       
-        //lorsque la partie est fini, on attribut les scores
-        //pour chacun des joueurs de la liste, on leur donne le bon nombre de point en foction de s'il est en vie ou non
+        // Lorsque la partie est fini, on attribut les scores pour chacun des joueurs de la liste,
+        // on leur donne le bon nombre de point si le joueur existe et s'il est en vie ou non
         boolean test_exist = false;
         for (int i = 0; i < nb_joueur; i++ )
         {
@@ -232,7 +242,7 @@ public class Jeu {
             for (Joueur score : listescore) {
                 if (score.pseudo.equals(test.pseudo))
                 {
-                    System.out.print("joueur existant");
+                    System.out.print("Joueur existant");
                     boolean test2 = test.mort;
                     if (!test2){
                         score.score -= 2;
@@ -243,24 +253,25 @@ public class Jeu {
                         score.score += 5;
                         System.out.println("Le joueur : " + test.pseudo + " à gagné");
                     }
-
                     test_exist = true;
-
                 }
             }
+
             if(test_exist == false)
             {
                 Joueur score = new Joueur();
                 boolean test2 = test.mort;
-                if (!test2) {
+                if (!test2)
+                {
                     score.score = -2;
                     score.pseudo = test.pseudo;
-                    System.out.println("Le joueur : " + test.pseudo + " à perdu son  nom a été enregistrer");
+                    System.out.println("Le joueur : " + test.pseudo + " a perdu son nom a été enregistré");
                 }
-                else {
+                else
+                {
                     score.score = 5;
                     score.pseudo = test.pseudo;
-                    System.out.println("Le joueur : " + test.pseudo + " à gagné son  nom a été enregistrer");
+                    System.out.println("Le joueur : " + test.pseudo + " a gagné son nom a été enregistré");
                 }
               
                 listescore.add(score);

@@ -50,7 +50,7 @@ public class Jeu {
         if ((compte_x == axe_x - 1) && (compte_y != axe_y - 2))
         {
             // Passe à la ligne et affiche le début d'une nouvelle ligne
-            System.out.print("\n |");
+            System.out.print("\n");
             // Appelle la fonction récursivement pour afficher la première cellule de la nouvelle ligne
             afficherTableau(tableau, axe_x, axe_y,1 , compte_y +1);
         }

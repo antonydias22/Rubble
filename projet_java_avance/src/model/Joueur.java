@@ -47,11 +47,21 @@ public class Joueur {
                     System.out.println("Choix incorrect");
                     break;
             }
-            System.out.println("1• Haut\n2• Bas\n3• Gauche\n4• Droite");
+            System.out.println("1• Haut\n2• Bas\n3• Gauche\n4• Droite\n5• Règle");
 
             // Vérification si l'entrée utilisateur est un entier
             if (scanner.hasNextInt()) {
                 se_deplacer = scanner.nextInt();
+                if (se_deplacer == 5)
+                {
+                    System.out.println("Pendant son tour, un joueur peut déplacer son pion d’une case (verticalement ou \n" +
+                            "horizontalement), puis il détruit une case du plateau. \n" +
+                            "Le dernier joueur pouvant encore se déplacer gagne.\n" +
+                            "Contraintes :\n" +
+                            "- Un joueur ne peut pas détruire une case occupée.\n" +
+                            "- Un joueur ne peut pas occuper une case détruite ou une case déjà occupée.\n" +
+                            "- Un joueur bloqué pendant un tour est déclaré perdant.");
+                }
                 // Vérification si le choix de déplacement est valide
                 if (se_deplacer >= 1 && se_deplacer <= 4) {
                     int newY = position[0] + directions[se_deplacer - 1][0];
@@ -68,7 +78,14 @@ public class Joueur {
                         System.out.println("Tu ne peux pas te déplacer ici !");
                     }
                 } else {
-                    System.out.println("Ce n'est pas une direction valide !");
+                    if (se_deplacer == 5)
+                    {
+                        System.out.println("Voici les règle ! ");
+                    }
+                    else
+                    {
+                        System.out.println("Ce n'est pas une direction valide !");
+                    }
                 }
             } else {
                 System.out.println("Veuillez entrer un nombre valide pour vous déplacer.");

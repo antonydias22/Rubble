@@ -19,9 +19,12 @@ public class Jeu {
         // Affichage de la barre verticale à la première cellule
         if ((compte_x == 1) && (compte_y == 1))
         {
-            System.out.print(" |");
+            System.out.print("  |1|2|3|4|5|6|7|8|9|0|1|\n");
         }
-
+        if (compte_x == 1)
+            System.out.print((compte_y %10) + " |");
+        if ( compte_x != axe_x -1)
+          
         // Vérifie si ce n'est pas la dernière colonne
         if (compte_x != axe_x -1)
         {
@@ -97,7 +100,7 @@ public class Jeu {
      * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
      * @return : on retourne le joueur qui va commencer pour lancer notre boucle de jeu
      */
-    public static void initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur)
+    public static void initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur, ArrayList<Joueur> score)
     {
         Jeu.init_tableau(tableau,1,1);
         // Demande le nombre de joueur
@@ -114,12 +117,12 @@ public class Jeu {
             }
             else{
                 System.out.println("Nombre de joueur Incorrect");
-                initialisation_jeu(tableau,joueur);
+                initialisation_jeu(tableau,joueur,score);
             }
         }
         else {
             System.out.println("Nombre de joueur Incorrect");
-            initialisation_jeu(tableau,joueur);
+            initialisation_jeu(tableau,joueur,score);
         }
 
         // Création des joueurs dans la liste joueur
@@ -175,18 +178,11 @@ public class Jeu {
         int aqui;
         Random r = new Random();
         aqui = r.nextInt(nb_joueur);
-
-        // Initialisation du plateau de jeu
-        tour_de_jeu(tableau,joueur,aqui);
+      
+        tour_de_jeu(tableau,joueur,aqui,score);
     }
-
-    /**
-     * Fonction permettant la gestion des tours de jeu dans la partie
-     * @param tableau : le tableau qui contient les infos que l'on veut afficher
-     * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
-     * @param aqui : variable qui stock les indices des joueurs
-     */
-    public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui)
+  
+    public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui, ArrayList<Joueur> listescore)
     {
         // Compte le nombre de joueur
         int nb_joueur = joueur.size();
@@ -226,23 +222,57 @@ public class Jeu {
             if (aqui == nb_joueur)
                 aqui = 0;
         }
-
-        // Lorsque la partie est fini, on attribut les scores pour chacun des joueurs de la liste,
-        // on leur donne le bon nombre de point en fonction de s'il est en vie ou non
-        for (int i = 1; i < nb_joueur; i++ )
+      
+        //lorsque la partie est fini, on attribut les scores
+        //pour chacun des joueurs de la liste, on leur donne le bon nombre de point en foction de s'il est en vie ou non
+        boolean test_exist = false;
+        for (int i = 0; i < nb_joueur; i++ )
         {
             Joueur test = joueur.get(i);
-            boolean test2 = test.mort;
-            if (!test2)
-                test.score -= 2;
-            else
-                test.score +=5;
-            System.out.println("Le joueur : " + test.pseudo + " à gagné");
-        }
+            for (Joueur score : listescore) {
+                if (score.pseudo.equals(test.pseudo))
+                {
+                    System.out.print("joueur existant");
+                    boolean test2 = test.mort;
+                    if (!test2){
+                        score.score -= 2;
+                        System.out.println("Le joueur : " + test.pseudo + " à perdu");
+                    }
 
+                    else {
+                        score.score += 5;
+                        System.out.println("Le joueur : " + test.pseudo + " à gagné");
+                    }
+
+                    test_exist = true;
+
+                }
+            }
+            if(test_exist == false)
+            {
+                Joueur score = new Joueur();
+                boolean test2 = test.mort;
+                if (!test2) {
+                    score.score = -2;
+                    score.pseudo = test.pseudo;
+                    System.out.println("Le joueur : " + test.pseudo + " à perdu son  nom a été enregistrer");
+                }
+                else {
+                    score.score = 5;
+                    score.pseudo = test.pseudo;
+                    System.out.println("Le joueur : " + test.pseudo + " à gagné son  nom a été enregistrer");
+                }
+              
+                listescore.add(score);
+            }
+            test_exist = false;
+
+        }
+        joueur.clear();
+      
         // Retour au menu principal
         Scanner scanner3 = new Scanner(System.in);
         String touche = scanner3.nextLine();
-        Menu.afficher_menu(joueur, tableau);
+        Menu.afficher_menu(joueur, tableau,listescore);
     }
 }

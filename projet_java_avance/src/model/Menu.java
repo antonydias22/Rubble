@@ -1,5 +1,7 @@
 package model;// Déclaration du package
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ public class Menu {
      * Affiche le menu principal du jeu
      */
   
-    public static void afficher_menu(ArrayList<Joueur> joueur, int[][]tableau,ArrayList<Joueur>score){
+    public static void afficher_menu(ArrayList<Joueur> joueur, int[][]tableau,ArrayList<Joueur>score) throws IOException, NoSuchAlgorithmException {
   
         //afficher les différentes options du menu
         System.out.println("" +

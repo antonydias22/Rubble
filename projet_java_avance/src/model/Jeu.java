@@ -1,5 +1,7 @@
 package model; // Déclaration du package
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList; // Importation de la classe ArrayList
 import java.util.Random; // Importation de la classe Random
 import java.util.Scanner; // Importation de la classe Scanner
@@ -100,8 +102,7 @@ public class Jeu {
      * @param joueur : la liste des joueurs que l'on va remplir à l'initialisation de la partie
      * @return : on retourne le joueur qui va commencer pour lancer notre boucle de jeu
      */
-    public static void initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur, ArrayList<Joueur> score)
-    {
+    public static void initialisation_jeu(int[][]tableau, ArrayList<Joueur> joueur, ArrayList<Joueur> score) throws IOException, NoSuchAlgorithmException {
         Jeu.init_tableau(tableau,1,1);
         // Demande le nombre de joueur
         System.out.println("Nombre de joueur(s) : ");
@@ -182,8 +183,7 @@ public class Jeu {
         tour_de_jeu(tableau,joueur,aqui,score);
     }
   
-    public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui, ArrayList<Joueur> listescore)
-    {
+    public static void tour_de_jeu(int[][]tableau, ArrayList<Joueur> joueur, int aqui, ArrayList<Joueur> listescore) throws IOException, NoSuchAlgorithmException {
         // Compte le nombre de joueur
         int nb_joueur = joueur.size();
         boolean fin = false;
@@ -268,6 +268,7 @@ public class Jeu {
             test_exist = false;
 
         }
+        Sauvegarder.sauvegarderScores("C:\\Users\\anton\\OneDrive\\Bureau\\coding\\Mes_projets\\destruct chess\\Rubble\\projet_java_avance\\src\\control\\score.txt",joueur);
         joueur.clear();
       
         // Retour au menu principal

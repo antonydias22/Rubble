@@ -25,9 +25,13 @@ public class Menu {
                 "  ███    ███ ████████▀  ▄█████████▀  ▄█████████▀  █████▄▄██   ██████████ \n" +
                 "  ███    ███                                      ▀▀▀▀▀▀▀▀▀                          ");
 
-        System.out.println("\n1•Jouer ");
-        System.out.println("2•Règles");
-        System.out.println("3•Score");
+
+        System.out.println("\nMenu du jeu :");
+        System.out.println("┌──────────────┐");
+        System.out.println("│ 1• Jouer     │");
+        System.out.println("│ 2• Règles    │");
+        System.out.println("│ 3• Score     │");
+        System.out.println("└──────────────┘");
 
         // Scanner le choix de l'utilisateur
         Scanner scanner = new Scanner(System.in);

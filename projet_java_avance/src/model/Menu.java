@@ -26,7 +26,6 @@ public class Menu {
         System.out.println("\n1•Jouer ");
         System.out.println("2•Règles");
         System.out.println("3•Score");
-        System.out.println("3•Fermer");
 
         // Scanner le choix de l'utilisateur
         Scanner scanner = new Scanner(System.in);
